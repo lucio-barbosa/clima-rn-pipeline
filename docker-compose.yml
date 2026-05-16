@@ -9,9 +9,11 @@ services:
       MYSQL_PASSWORD: admin
     ports:
       - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
   airflow:
-    image: apache/airflow:2.8.1
+    build: .
     container_name: airflow_clima
     depends_on:
       - mysql
@@ -23,4 +25,7 @@ services:
       - ./:/opt/airflow/project
     ports:
       - "8080:8080"
-    command: bash -c "airflow standalone"    
+    command: bash -c "airflow standalone"
+
+volumes:
+  mysql_data:

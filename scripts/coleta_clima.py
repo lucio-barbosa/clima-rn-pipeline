@@ -23,12 +23,21 @@ locais = [
 ]
 
 def conectar_banco():
+    ambiente_airflow = os.path.exists("/opt/airflow")
+
+    if ambiente_airflow:
+        host = os.getenv("DB_HOST", "clima_mysql")
+        port = int(os.getenv("DB_PORT", 3306))
+    else:
+        host = os.getenv("DB_HOST_LOCAL", "localhost")
+        port = int(os.getenv("DB_PORT_LOCAL", 3307))
+
     return mysql.connector.connect(
-        host="localhost",
-        port=3307,
-        user="admin",
-        password="admin",
-        database="clima"
+        host=host,
+        port=port,
+        user=os.getenv("DB_USER", "admin"),
+        password=os.getenv("DB_PASSWORD", "admin"),
+        database=os.getenv("DB_NAME", "clima")
     )
 
 def coletar_clima():

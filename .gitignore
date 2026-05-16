@@ -1,24 +1,47 @@
+# =========================
 # Python
+# =========================
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Ambientes virtuais
 .venv/
 venv/
+.sixth/
 
+# =========================
 # Airflow
+# =========================
 logs/
 airflow.db
 standalone_admin_password.txt
 
+# =========================
 # Docker
+# =========================
 *.log
 
-# Ambiente
+# =========================
+# Variáveis de ambiente
+# =========================
 .env
 
+# =========================
 # Dados gerados
+# =========================
 *.csv
 *.xlsx
 *.json
 
+# =========================
 # VS Code
+# =========================
 .vscode/
+
+# =========================
+# Sistema operacional
+# =========================
+.DS_Store
+Thumbs.db

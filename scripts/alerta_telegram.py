@@ -1,26 +1,41 @@
+import os
 import requests
-from tratamento_dados import gerar_mensagem_alerta
+from dotenv import load_dotenv
 
-TOKEN = "SEU_TOKEN_DO_BOT"
-CHAT_ID = "SEU_CHAT_ID"
+load_dotenv()
 
-def enviar_telegram():
-    mensagem = gerar_mensagem_alerta()
+def enviar_telegram(mensagem=None):
+    token = os.getenv("TELEGRAM_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+    if not token or not chat_id:
+        raise ValueError("TELEGRAM_TOKEN ou TELEGRAM_CHAT_ID não encontrados no .env")
+
+    if mensagem is None:
+        mensagem = """
+🚨 ALERTA CLIMÁTICO RN
+
+Sistema de alerta climático funcionando com sucesso.
+
+✅ Telegram integrado
+✅ Python conectado
+✅ Projeto Clima RN operacional
+"""
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
 
     payload = {
-        "chat_id": CHAT_ID,
+        "chat_id": chat_id,
         "text": mensagem
     }
 
-    resposta = requests.post(url, data=payload, timeout=30)
+    response = requests.post(url, data=payload)
 
-    if resposta.status_code == 200:
-        print("Mensagem enviada com sucesso no Telegram.")
+    if response.status_code == 200:
+        print("✅ Alerta enviado com sucesso no Telegram!")
     else:
-        print("Erro ao enviar mensagem no Telegram.")
-        print(resposta.text)
+        print("❌ Erro ao enviar alerta.")
+        print(response.text)
 
 if __name__ == "__main__":
-    enviar_telegram()    
+    enviar_telegram()
