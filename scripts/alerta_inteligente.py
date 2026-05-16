@@ -51,11 +51,12 @@ def gerar_alertas_inteligentes():
         chuva = item["chuva"]
         data_coleta = item["data_coleta"]
 
+        
         if chuva >= 10:
             nivel = "🚨 ALERTA DE CHUVA INTENSA"
             recomendacao = "Evite áreas de alagamento e acompanhe os avisos oficiais."
 
-        elif umidade >= 65 and nuvens >= 40:
+        elif umidade >= 80 and nuvens >= 40:
             nivel = "⚠️ ALERTA MODERADO DE CHUVA"
             recomendacao = "Acompanhe a evolução do clima nas próximas horas."
 
@@ -63,10 +64,18 @@ def gerar_alertas_inteligentes():
             nivel = "☀️ ALERTA DE SECA SEVERA"
             recomendacao = "Economize água e evite exposição prolongada ao sol."
 
+        elif umidade >= 85:
+            nivel = "🌫️ ATENÇÃO: UMIDADE ELEVADA"
+            recomendacao = "Umidade alta detectada. Acompanhe mudanças no tempo."
+
+        elif nuvens >= 70:
+            nivel = "☁️ ATENÇÃO: ALTA NEBULOSIDADE"
+            recomendacao = "Céu muito nublado. Possibilidade de instabilidade climática."
+
         else:
             nivel = "🟢 SITUAÇÃO NORMAL"
             recomendacao = "Sem alerta crítico no momento."
-
+            
         mensagem = f"""
 {nivel}
 

@@ -1,6 +1,6 @@
 import requests
 import mysql.connector
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
 
@@ -73,7 +73,7 @@ def coletar_clima():
             if "rain" in dados and "1h" in dados["rain"]:
                 chuva = float(dados["rain"]["1h"])
 
-            data_coleta = datetime.now()
+            data_coleta = datetime.utcnow() - timedelta(hours=3)
 
             sql = """
                 INSERT INTO clima_dados
