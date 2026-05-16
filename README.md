@@ -52,13 +52,48 @@ O fluxo do sistema segue o padrão moderno de engenharia de dados:
 
 5. **Orquestração**
 
-   * Apache Airflow executa o pipeline automaticamente
+ * Apache Airflow executa o pipeline automaticamente de hora em hora
 
 6. **Infraestrutura**
 
    * Docker gerencia os containers (Airflow + MySQL)
 
 ---
+## ✅ Pipeline em Execução
+
+### Apache Airflow – DAG executando com sucesso
+
+<p align="center">
+  <img src="docs/dag_verde_airflow.png" alt="DAG Clima RN Executando" width="1000"/>
+</p>
+
+### Corrigindo erros - DAG Quebrando 
+
+<p align="center">
+  <img src="docs/dag_vermelha_airflow.png" alt="DAG Clima RN Apresentando erro" width="1000"/>
+</p>
+
+
+## 📲 Alertas Inteligentes no Telegram
+
+<p align="center">
+  <img src="docs/alerta_telegram.png" alt="alerta telegram" width="1000"/>
+</p>
+
+### Demonstração de Códigos
+
+<p align="center">
+  <img src="docs/TELA_CODIGO.png" alt="DAG Clima RN Apresentação do codigo" width="1000"/>
+</p>
+
+
+## 🐳 Containers Docker em Execução
+
+<p align="center">
+  <img src="docs/docker_containers.png" alt="alerta telegram" width="1000"/>
+</p>
+
+
 
 ## 🔄 Pipeline ETL Detalhado
 
@@ -102,6 +137,14 @@ Campos armazenados:
 * probabilidade_chuva
 * data_coleta
 
+### 📤 Saídas do Pipeline
+
+O sistema atualmente gera:
+
+* Banco MySQL atualizado
+* Arquivos CSV
+* Arquivos Excel
+* Alertas automáticos via Telegram
 ---
 
 ## ⚙️ Stack Tecnológica
@@ -113,8 +156,10 @@ Campos armazenados:
 | Banco        | MySQL          |
 | Container    | Docker         |
 | API          | OpenWeather    |
-
+| Exportação   | CSV / Excel    |
+| Alertas      | Telegram Bot API |
 ---
+
 
 ## 📂 Estrutura do Projeto
 
@@ -125,12 +170,22 @@ clima_rn/
 │   └── clima_dag.py
 │
 ├── scripts/
-│   └── coleta_clima.py
+│   ├── coleta_clima.py
+│   ├── exporta_csv.py
+│   ├── exporta_excel.py
+│   ├── alerta_inteligente.py
+│   ├── alerta_telegram.py
+│   └── enviar_alerta_inteligente.py
+│
+├── data/
+│
+├── docs/
 │
 ├── docker-compose.yml
+├── Dockerfile
 ├── requirements.txt
+├── .env.example
 ├── README.md
-├── .env
 └── .gitignore
 ```
 
@@ -142,8 +197,12 @@ Uso de variáveis de ambiente:
 
 ```env
 API_KEY=******
-DB_HOST=localhost
-DB_PORT=3307
+DB_HOST=clima_mysql
+DB_PORT=3306
+
+DB_HOST_LOCAL=localhost
+DB_PORT_LOCAL=3307
+
 DB_USER=admin
 DB_PASSWORD=******
 DB_NAME=clima
@@ -202,10 +261,11 @@ http://localhost:8080
 
 ## 📊 Possíveis Expansões
 
-* 📩 Alertas via Telegram
 * 📈 Dashboard com Power BI ou Streamlit
-* 🤖 Machine Learning para previsão
+* 🤖 Machine Learning para previsão climática
 * 🌎 Escalar para nível nacional
+* 📲 Cadastro multiusuário para alertas Telegram
+* ☁️ Deploy em nuvem (AWS/GCP/Azure/OCI)
 
 ---
 
@@ -224,11 +284,10 @@ https://www.linkedin.com/in/lucio-fabio-barbosa-de-lima
 
 ## ⭐ Diferenciais do Projeto
 
-✔ Pipeline ETL completo
-✔ Orquestração com Airflow
-✔ Uso de Docker
-✔ Boas práticas (.env)
-✔ Estrutura profissional
+✔ Alertas inteligentes via Telegram
+✔ Pipeline reproduzível via Docker
+✔ Exportação CSV e Excel
+✔ Execução automática de hora em hora
 
 ---
 
